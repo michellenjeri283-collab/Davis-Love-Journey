@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Journey ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+ font-family:Poppins,sans-serif;color:#4a1830;
+ background:linear-gradient(135deg,#5d1636,#8d234c 48%,#e89aab);
+ overflow-x:hidden;padding:20px
+}
+body:before,body:after{content:"";position:fixed;width:260px;height:260px;border-radius:50%;
+ background:rgba(255,255,255,.08);filter:blur(4px);z-index:0}
+body:before{top:-100px;left:-100px}body:after{bottom:-120px;right:-90px}
+.heart{position:fixed;bottom:-30px;font-size:20px;opacity:.65;animation:float 9s linear infinite;z-index:0}
+@keyframes float{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.65}100%{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+.container{width:min(680px,100%);position:relative;z-index:2}
+.card{
+ background:#fff8fa;border-radius:28px;padding:30px 24px;box-shadow:0 20px 60px rgba(50,0,20,.3);
+ min-height:560px;display:flex;flex-direction:column;justify-content:center
+}
+.hidden{display:none!important}
+h1,h2{font-family:"Cormorant Garamond",serif;margin:0 0 14px;color:#791d43}
+h1{font-size:48px;line-height:1.05}h2{font-size:34px;line-height:1.1}
+.subtitle{font-size:15px;line-height:1.7;color:#70445a;margin-bottom:22px}
+.center{text-align:center}
+.heart-big{font-size:72px;animation:pulse 1.5s ease-in-out infinite;margin-bottom:10px}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.note{background:#fff0f4;border-left:4px solid #a52d59;padding:15px;border-radius:14px;line-height:1.7;font-size:14px;text-align:left;margin:16px 0}
+.progress-wrap{height:8px;background:#f3d5df;border-radius:20px;overflow:hidden;margin-bottom:24px}
+.progress{height:100%;width:0;background:#9d2855;border-radius:20px;transition:.3s}
+.qnum{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#a34b6b;margin-bottom:8px}
+.question{font-size:23px;font-weight:600;line-height:1.4;margin-bottom:20px;color:#49172d}
+.option{
+ width:100%;text-align:left;border:2px solid #f0c8d5;background:white;color:#522039;
+ padding:14px 15px;border-radius:16px;margin:8px 0;font:500 14px Poppins;cursor:pointer;transition:.2s
+}
+.option:hover{transform:translateY(-1px);border-color:#bb5277;background:#fff5f8}
+.option.correct{border-color:#43a06b;background:#edf9f1}.option.wrong{border-color:#d34d67;background:#fff0f3}
+.feedback{min-height:24px;margin-top:8px;font-size:13px;color:#9a294e;font-weight:500}
+button.next,.start,.replay{
+ border:0;background:#8e234d;color:white;padding:14px 22px;border-radius:999px;font:600 14px Poppins;
+ cursor:pointer;box-shadow:0 8px 20px rgba(142,35,77,.25);margin-top:16px
+}
+button.next:disabled{opacity:.45;cursor:not-allowed}
+textarea{width:100%;min-height:145px;border:2px solid #edc5d2;border-radius:16px;padding:15px;font:14px Poppins;resize:vertical;outline:none}
+textarea:focus{border-color:#a52d59}
+.final-note{text-align:left;font-family:"Cormorant Garamond",serif;font-size:20px;line-height:1.55;color:#552038}
+.small{font-size:12px;color:#8d6070;margin-top:12px}
+@media(max-width:500px){.card{padding:25px 18px;min-height:590px}h1{font-size:41px}h2{font-size:30px}.question{font-size:20px}.option{font-size:13.5px}}
+</style>
+</head>
+<body>
+<div class="heart" style="left:8%;animation-delay:0s">♥</div>
+<div class="heart" style="left:24%;animation-delay:2s">♡</div>
+<div class="heart" style="left:46%;animation-delay:4s">♥</div>
+<div class="heart" style="left:68%;animation-delay:1s">♡</div>
+<div class="heart" style="left:88%;animation-delay:5s">♥</div>
+
+<div class="container">
+<div class="card" id="welcome">
+  <div class="center">
+    <div class="heart-big">❤️</div>
+    <h1>Hey Davis...</h1>
+    <p class="subtitle">Welcome to a little love journey made especially for you by Michelle. 🥰</p>
+    <div class="note">
+      <strong>One important rule before you start:</strong><br>
+      Please complete the whole quiz until you reach the final message.
+      <strong>When you finish, screenshot the message at the very end and send the screenshot to me.</strong>
+      That's how I'll know you actually finished the quiz. 😂❤️
+    </div>
+    <p class="subtitle">Some questions are easy... some choices are intentionally very similar. So let's see how well you know your girl. 🤭</p>
+    <button class="start" onclick="startQuiz()">Start Our Love Journey ❤️</button>
+  </div>
+</div>
+
+<div class="card hidden" id="quiz">
+  <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+  <div id="questionArea"></div>
+</div>
+
+<div class="card hidden" id="final">
+  <div class="center">
+    <div class="heart-big">💗</div>
+    <h2>You made it to the end! 🥹</h2>
+    <div class="final-note">
+      <p><strong>My dearest Davis,</strong></p>
+      <p>I made this little journey because sometimes words don't fully explain how much someone means to you.</p>
+      <p>Thank you for the memories, the laughter, the conversations, the little moments, and simply being part of my life. I hope we keep growing, learning, laughing, supporting each other and choosing each other through everything that comes our way.</p>
+      <p>I don't know what every chapter of our story will look like, but I'm grateful that you're in it. ❤️</p>
+      <p><strong>Happy Boyfriend Day, my love.</strong> This little website is just one tiny reminder that you are special to me.</p>
+      <p>With love, always ❤️<br><strong>Michelle</strong></p>
+    </div>
+    <div class="note"><strong>YOU FINISHED! 🎉</strong><br>
+      Now screenshot this message and send it to Michelle so she knows you completed your love quiz. 📸❤️
+    </div>
+    <button class="replay" onclick="location.reload()">Replay Our Journey ❤️</button>
+  </div>
+</div>
+</div>
+
+<script>
+const questions = [
+{type:"mc", q:"What is the one thing I hope you never forget about me?",
+ o:["That I love you","That I can cook 😂","That I like winning","That I sleep a lot"], a:0},
+{type:"mc", q:"If we had a whole day together, what would make me happiest?",
+ o:["Being spoiled with money","Spending quality time together","Sleeping all day","Playing video games alone"], a:1},
+{type:"mc", q:"What makes a relationship feel special?",
+ o:["Expensive gifts only","Ignoring each other","Love, effort and understanding","Winning every argument"], a:2},
+{type:"mc", q:"When I say “I’m fine” but clearly I’m not… what should you do?",
+ o:["Disappear 😂","Argue with me","Ask me what’s wrong and stay with me","Pretend not to notice"], a:2},
+{type:"mc", q:"Which of these would make the cutest date for us?",
+ o:["A quiet movie night together","Doing separate things all day","A serious meeting 😂","Running away from each other"], a:0},
+
+{type:"mc", q:"If Davis could give me one thing that would matter most to me in our relationship, which would I choose?",
+ o:["Being loved and reassured through words and actions ❤️","Having your attention and feeling emotionally understood ❤️","Having financial security and being spoiled sometimes 💰","Having a relationship where we never have serious disagreements"], a:0},
+
+{type:"mc", q:"Imagine we have a disagreement. I become quiet and say, “It’s okay.” What am I probably hoping Davis does?",
+ o:["Give me some time, then check on me later","Give me space but remind me that he loves me","Stay close, ask what’s wrong, and genuinely try to understand me ❤️","Try to explain his side first so we can solve it quickly"], a:2},
+
+{type:"mc", q:"I’ve had a really difficult day. Which would probably mean the most to me?",
+ o:["A sweet message reminding me that everything will be okay","Giving me something I like to cheer me up","Spending time with me, listening to me, and reminding me you’re there ❤️","Giving me space while checking on me occasionally"], a:2},
+
+{type:"mc", q:"If I were describing what I want our relationship to have, which combination sounds most like me?",
+ o:["Love, communication, financial stability and occasional surprises ❤️","Love, trust, communication, effort and financial stability ❤️","Love, patience, romance, financial stability and independence","Love, trust, attention, money and avoiding unnecessary disagreements"], a:0},
+
+{type:"mc", q:"Which statement best describes what I want for our future?",
+ o:["I want us to love each other, support each other financially and emotionally, and enjoy life together.","I want us to keep choosing each other, communicate honestly, grow individually and together, build financial stability, and stay committed through both good and difficult moments.","I want us to build a stable life together, always communicate, make each other happy and never give up on each other.","I want us to love each other deeply, build a comfortable future, support each other’s dreams and always remain close."], a:3},
+
+{type:"text", q:"What is one thing I do wrong that you would really like me to change?", placeholder:"Be honest... I promise I'm listening. ❤️"},
+{type:"text", q:"What do you love about me, and what actually makes you think we can have a future together?", placeholder:"Take your time... I really want to know. 🥹❤️"}
+];
+
+let current=0;
+
+function startQuiz(){
+ document.getElementById("welcome").classList.add("hidden");
+ document.getElementById("quiz").classList.remove("hidden");
+ render();
+}
+function render(){
+ const area=document.getElementById("questionArea");
+ const q=questions[current];
+ document.getElementById("progress").style.width=((current)/questions.length*100)+"%";
+ let html=`<div class="qnum">Question ${current+1} of ${questions.length}</div><div class="question">${q.q}</div>`;
+ if(q.type==="mc"){
+   html+=`<div id="options">`;
+   q.o.forEach((x,i)=>html+=`<button class="option" onclick="choose(${i})">${String.fromCharCode(65+i)}. ${x}</button>`);
+   html+=`</div><div class="feedback" id="feedback"></div><button class="next" id="next" disabled onclick="nextQuestion()">Next ❤️</button>`;
+ }else{
+   html+=`<textarea id="answer" placeholder="${q.placeholder}"></textarea>
+   <div class="feedback" id="feedback"></div>
+   <button class="next" id="next" disabled onclick="nextQuestion()">Continue ❤️</button>`;
+ }
+ area.innerHTML=html;
+ if(q.type==="text"){
+   document.getElementById("answer").addEventListener("input",function(){
+     document.getElementById("next").disabled=this.value.trim().length<2;
+   });
+ }
+}
+function choose(i){
+ const q=questions[current];
+ const buttons=document.querySelectorAll(".option");
+ const feedback=document.getElementById("feedback");
+ buttons.forEach(b=>b.classList.remove("wrong","correct"));
+ if(i===q.a){
+   buttons[i].classList.add("correct");
+   feedback.textContent="Okayyy... you know your girl. 😌❤️";
+   document.getElementById("next").disabled=false;
+   buttons.forEach(b=>b.disabled=true);
+ }else{
+   buttons[i].classList.add("wrong");
+   feedback.textContent="Nope 😂❤️ Try again. You don't get to escape this one!";
+ }
+}
+function nextQuestion(){
+ current++;
+ if(current>=questions.length){
+   document.getElementById("quiz").classList.add("hidden");
+   document.getElementById("final").classList.remove("hidden");
+   document.getElementById("progress").style.width="100%";
+ }else render();
+}
+</script>
+</body>
+</html>
